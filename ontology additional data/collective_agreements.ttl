@@ -1,0 +1,657 @@
+@prefix : <http://localhost:8000/collective_agreements.ttl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://localhost:8000/collective_agreements.ttl> .
+
+<http://localhost:8000/collective_agreements.ttl> rdf:type owl:Ontology ;
+                                                   owl:versionIRI <urn:absolute:http://localhost:8000/collective_agreements.ttl/1.0.0> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://localhost:8000/collective_agreements.ttl#hasAnniversaryBonusPayClause
+:hasAnniversaryBonusPayClause rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf :hasContractualClause ;
+                              rdf:type owl:AsymmetricProperty ,
+                                       owl:IrreflexiveProperty ;
+                              rdfs:domain :CollectiveAgreement ;
+                              rdfs:range :AnniversaryBonusPayClause ;
+                              rdfs:label "has Vereinbarung über Jubiläumszuwendungen"@de ,
+                                         "has anniversary bonus pay clause"@en .
+
+
+###  http://localhost:8000/collective_agreements.ttl#hasBonusPayClause
+:hasBonusPayClause rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :hasContractualClause ;
+                   rdf:type owl:AsymmetricProperty ,
+                            owl:IrreflexiveProperty ;
+                   rdfs:domain :CollectiveAgreement ;
+                   rdfs:range :BonusPayClause ;
+                   rdfs:label "has bonus pay clause"@en ,
+                              "hat Vereinbarung über Sonderzahlungen"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#hasContractParty
+:hasContractParty rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :hasSignedContract ;
+                  rdf:type owl:AsymmetricProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain :CollectiveAgreement ;
+                  rdfs:range :ContractParty ;
+                  rdfs:label "has contract party"@en ,
+                             "hat Vertragspartei"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#hasContractPartyRepresentingEmployees
+:hasContractPartyRepresentingEmployees rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf :hasContractParty ;
+                                       rdf:type owl:AsymmetricProperty ,
+                                                owl:IrreflexiveProperty ;
+                                       rdfs:domain :CollectiveAgreement ;
+                                       rdfs:range :ContractParty ;
+                                       owl:propertyDisjointWith :hasContractPartyRepresentingEmployers ;
+                                       rdfs:label "has contract party representing employees"@en ,
+                                                  "hat Vertragspartei auf Arbeitnehmerseite"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#hasContractPartyRepresentingEmployers
+:hasContractPartyRepresentingEmployers rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf :hasContractParty ;
+                                       rdf:type owl:AsymmetricProperty ,
+                                                owl:IrreflexiveProperty ;
+                                       rdfs:domain :CollectiveAgreement ;
+                                       rdfs:range :ContractParty ;
+                                       rdfs:label "has contract party representing employers"@en ,
+                                                  "hat Vertragspartei auf Arbeitgeberseite"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#hasContractualClause
+:hasContractualClause rdf:type owl:ObjectProperty ;
+                      owl:inverseOf :partOf ;
+                      rdf:type owl:AsymmetricProperty ,
+                               owl:IrreflexiveProperty ;
+                      rdfs:domain :CollectiveAgreement ;
+                      rdfs:range :ContractualClause ;
+                      rdfs:label "has contractual clause"@en ,
+                                 "hat vertragliche Bestimmung"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#hasNormalWorkingHoursClause
+:hasNormalWorkingHoursClause rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf :hasContractualClause ;
+                             rdf:type owl:AsymmetricProperty ,
+                                      owl:IrreflexiveProperty ;
+                             rdfs:domain :CollectiveAgreement ;
+                             rdfs:range :NormalWorkingHoursClause ;
+                             rdfs:label "has normal working hours clause"@en ,
+                                        "hat Vereinbarung über Normalarbeitszeit"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#hasSignedContract
+:hasSignedContract rdf:type owl:ObjectProperty ,
+                            owl:AsymmetricProperty ,
+                            owl:IrreflexiveProperty ;
+                   rdfs:domain :ContractParty ;
+                   rdfs:range :CollectiveAgreement ;
+                   rdfs:label "has signed contract"@en ,
+                              "hat Vertrag unterzeichnet"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#partOf
+:partOf rdf:type owl:ObjectProperty ,
+                 owl:AsymmetricProperty ,
+                 owl:IrreflexiveProperty ;
+        rdfs:domain :ContractualClause ;
+        rdfs:range :CollectiveAgreement ;
+        rdfs:label "ist Teil von"@de ,
+                   "part of"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://localhost:8000/collective_agreements.ttl#collectiveAgreementUrl
+:collectiveAgreementUrl rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :CollectiveAgreement ;
+                        rdfs:range xsd:anyURI ;
+                        rdfs:comment "Every collectvie agreement can be found on the website kollektivvertrag.at/kv/. This is the URL to the corresponding page where the collective agreement is taken from."@en ,
+                                     "Jeder Kollektivvertrag kann auf der Website kollektivvertrag.at/kv/ gefunden werden. Dieses Attribut gibt an, auf welcher Seite dieser Kollektivvertrag gefunden werden kann."@de ;
+                        rdfs:label "Collective Agreement URL"@en ,
+                                   "Kollektivvertrag URL"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#dateOfComingIntoEffect
+:dateOfComingIntoEffect rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :CollectiveAgreement ;
+                        rdfs:range xsd:dateTime ;
+                        rdfs:label "Date of Coming into Effect"@en ,
+                                   "Datum des Inkrafttretens"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#heading
+:heading rdf:type owl:DatatypeProperty ;
+         rdfs:domain :ContractualClause ;
+         rdfs:range xsd:string ;
+         rdfs:label "Heading"@en ,
+                    "Überschrift"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#normalWorkingHoursPerDay
+:normalWorkingHoursPerDay rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :workingTime ;
+                          rdfs:domain :NormalWorkingHoursClause ;
+                          rdfs:range xsd:string ;
+                          rdfs:label "Normal Working Hours per Day"@en ,
+                                     "Tägliche Normalarbeitszeit"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#normalWorkingHoursPerWeek
+:normalWorkingHoursPerWeek rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf :workingTime ;
+                           rdfs:domain :NormalWorkingHoursClause ;
+                           rdfs:range xsd:string ;
+                           rdfs:label "Normal Working Hours per Week"@en ,
+                                      "Wöchentliche Normalarbeitszeit"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#partyName
+:partyName rdf:type owl:DatatypeProperty ;
+           rdfs:domain :ContractParty ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Every contract party has to have a name that is used to identify the party in the protocol of signature."@en ,
+                        "Jeder Vertragspartei hat einen Namen, der sie im Unterzeichnungsprotokoll des jeweiligen Kollektivvertrags identifiziert."@de ;
+           rdfs:label "Parteienbezeichnung"@de ,
+                      "Party Name"@en .
+
+
+###  http://localhost:8000/collective_agreements.ttl#periodForTheAveragingOfWorkingTime
+:periodForTheAveragingOfWorkingTime rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf :workingTime ;
+                                    rdfs:domain :NormalWorkingHoursClause ;
+                                    rdfs:range xsd:string ;
+                                    rdfs:label "Durchrechnungszeitraum"@de ,
+                                               "Period for the Averaging of Working Time"@en .
+
+
+###  http://localhost:8000/collective_agreements.ttl#personalScopeOfApplication
+:personalScopeOfApplication rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :CollectiveAgreement ;
+                            rdfs:range [ rdf:type rdfs:Datatype ;
+                                         owl:oneOf [ rdf:type rdf:List ;
+                                                     rdf:first "Angestellte" ;
+                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                rdf:first "Arbeiter" ;
+                                                                rdf:rest rdf:nil
+                                                              ]
+                                                   ]
+                                       ] ;
+                            rdfs:label "Personal Scope of Application"@en ,
+                                       "Persönlicher Geltungsbereich"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#text
+:text rdf:type owl:DatatypeProperty ;
+      rdfs:domain :ContractualClause ;
+      rdfs:range xsd:string ;
+      rdfs:comment "Dieses Attribut ist der Text einer Vertragsklausel. Der Text beinhaltet die rechtlich bindenden Regeln der jeweiligen Klausel."@de ,
+                   "This property is the text of a clause, which contains the legally binding rule that this clause denotes."@en ;
+      rdfs:label "Text"@de ,
+                 "Text"@en .
+
+
+###  http://localhost:8000/collective_agreements.ttl#title
+:title rdf:type owl:DatatypeProperty ;
+       rdfs:domain :CollectiveAgreement ;
+       rdfs:range xsd:string ;
+       rdfs:label "Titel"@de ,
+                  "Title"@en .
+
+
+###  http://localhost:8000/collective_agreements.ttl#workingTime
+:workingTime rdf:type owl:DatatypeProperty ;
+             rdfs:domain :NormalWorkingHoursClause ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Arbeitszeit"@de ;
+             rdfs:label "Working Time"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://localhost:8000/collective_agreements.ttl#AnniversaryBonusPayClause
+:AnniversaryBonusPayClause rdf:type owl:Class ;
+                           rdfs:subClassOf :ContractualClause ;
+                           owl:disjointWith :NormalWorkingHoursClause ;
+                           rdfs:comment "Anniversary bonus pay clauses determine whether the employee is entitled to a special payment."@en ,
+                                        "Vertragsklauseln über Jubiläumsgelder sind entscheidend dafür, ob einem Arbeitnehmer eine Jubiläumszuwendung zusteht oder nicht."@de ;
+                           rdfs:label "Anniversary Bonus Pay Clause"@en ,
+                                      "Vereinbarung über Jubiäumszuwendungen"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#BonusPayClause
+:BonusPayClause rdf:type owl:Class ;
+                rdfs:subClassOf :ContractualClause ;
+                owl:disjointWith :NormalWorkingHoursClause ;
+                rdfs:label "Bonus Pay Clause"@en ,
+                           "Vereinbarung über Sonderzahlungen"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#CollectiveAgreement
+:CollectiveAgreement rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasContractParty ;
+                                       owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ContractParty
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasContractPartyRepresentingEmployees ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ContractParty
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasContractPartyRepresentingEmployers ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ContractParty
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :personalScopeOfApplication ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:string
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :collectiveAgreementUrl ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:anyURI
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :dateOfComingIntoEffect ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:dateTime
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :title ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:string
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :personalScopeOfApplication ;
+                                       owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:string
+                                     ] ;
+                     rdfs:comment "A collective agreement is an agreement that the trade union negotiates annually with the employer side for all employees in a specific Industry."@en ,
+                                  "Ein Kollektivvertrag ist eine Vereinbarung, die die Gewerkschaft jährlich mit der Arbeitgeberseite für alle Arbeitnehmer in einer bestimmten Branche aushandelt."@de ;
+                     rdfs:label "Collective Agreement"@en ,
+                                "Kollektivvertrag"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#ContractParty
+:ContractParty rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasSignedContract ;
+                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :CollectiveAgreement
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :partyName ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onDataRange xsd:string
+                               ] ;
+               rdfs:comment "The contracting parties are the trade unions and representatives of the employers' side."@en ,
+                            "Vertragsparteien sind die Gewerkschaften und Vertreter der Arbeitergeberseite."@de ;
+               rdfs:label "Contract Party"@en ,
+                          "Vertragspartei"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#ContractualClause
+:ContractualClause rdf:type owl:Class ;
+                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                     owl:onProperty :partOf ;
+                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :CollectiveAgreement
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :heading ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :text ;
+                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:string
+                                   ] ;
+                   rdfs:comment "Contractual clauses are parts of the agreement that define the legal scope or legal rights and obligations under the agreement."@de ,
+                                "Vertragliche Bestimmungen sind Teile der Vereinbarung, die den rechtlichen Umfang oder die rechtlichen Rechte und Pflichten aus der Vereinbarung festlegen."@de ;
+                   rdfs:label "Contractual Clause"@en ,
+                              "Vertragliche Bestimmung"@de .
+
+
+###  http://localhost:8000/collective_agreements.ttl#NormalWorkingHoursClause
+:NormalWorkingHoursClause rdf:type owl:Class ;
+                          rdfs:subClassOf :ContractualClause ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty :workingTime ;
+                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onDataRange xsd:string
+                                          ] ;
+                          rdfs:comment "Normal working hours clauses define the number of hours that can be worked per day and per week within an accounting period without being considered overtime."@en ,
+                                       "Vereinbarungen über die Normalarbeitszeit legen die Anzahl an Stunden fest, die pro Tag und pro Woche innerhalb eines Durchrechnungszeitraums geleistet werden können, ohne als Überstunde zu gelten."@de ;
+                          rdfs:label "Normal Working Hours Clause"@en ,
+                                     "Vereinbarung über Normalarbeitszeit"@de .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://localhost:8000/collective_agreements.ttl#aerztekammer_fuer_vorarlberg
+:aerztekammer_fuer_vorarlberg rdf:type owl:NamedIndividual ,
+                                       :ContractParty ;
+                              :hasSignedContract :arzt-angestellte-vlb-ang ;
+                              :partyName "Ärztekammer für Vorarlberg"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang
+:arzt-angestellte-vlb-ang rdf:type owl:NamedIndividual ,
+                                   :CollectiveAgreement ;
+                          :hasAnniversaryBonusPayClause :arzt-angestellte-vlb-ang_sonderzahlungen ;
+                          :hasBonusPayClause :arzt-angestellte-vlb-ang_sonderzahlungen ;
+                          :hasContractPartyRepresentingEmployees :gewerkschaft_gpa ;
+                          :hasContractPartyRepresentingEmployers :aerztekammer_fuer_vorarlberg ;
+                          :hasContractualClause :arzt-angestellte-vlb-ang_geltungsbereich ,
+                                                :arzt-angestellte-vlb-ang_gesetzliche-bestimmungen ,
+                                                :arzt-angestellte-vlb-ang_urlaub-1 ,
+                                                :arzt-angestellte-vlb-ang_urlaub-2 ;
+                          :hasNormalWorkingHoursClause :arzt-angestellte-vlb-ang_arbeitszeit_1 ,
+                                                       :arzt-angestellte-vlb-ang_arbeitszeit_2 ;
+                          :collectiveAgreementUrl "https://www.kollektivvertrag.at/kv/arzt-angestellte-vlb-ang"^^xsd:anyURI ;
+                          :dateOfComingIntoEffect "2023-01-01T00:00:00"^^xsd:dateTime ;
+                          :personalScopeOfApplication "Angestellte"^^xsd:string ;
+                          :title "Rahmen Kollektivvertrag für die Angestellten bei Ärzten in Vorarlberg"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang_arbeitszeit_1
+:arzt-angestellte-vlb-ang_arbeitszeit_1 rdf:type owl:NamedIndividual ,
+                                                 :NormalWorkingHoursClause ;
+                                        :partOf :arzt-angestellte-vlb-ang ;
+                                        :heading "III. Arbeitszeit > 1."^^xsd:string ;
+                                        :normalWorkingHoursPerWeek "40 Stunden"^^xsd:string ;
+                                        :periodForTheAveragingOfWorkingTime "acht Wochen"^^xsd:string ;
+                                        :text "Die Arbeitszeit regelt sich nach den Bestimmungen des Arbeitszeitgesetzes, des Arbeitsruhe-gesetzes. Die Normalarbeitszeit für die im Abschnitt I angeführten Arbeitnehmer beträgt 40 Stunden in der Woche, wobei die Aufteilung der Einzelvereinbarung mit der Maßgabe überlassen bleibt, dass der tägliche Beginn nicht vor 7.00 Uhr, das Ende nicht nach 22.00 Uhr liegen und die tägliche Arbeitszeit 10 Stunden nicht überschreiten darf."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang_arbeitszeit_2
+:arzt-angestellte-vlb-ang_arbeitszeit_2 rdf:type owl:NamedIndividual ,
+                                                 :NormalWorkingHoursClause ;
+                                        :partOf :arzt-angestellte-vlb-ang ;
+                                        :heading "III. Arbeitszeit > 2."^^xsd:string ;
+                                        :normalWorkingHoursPerDay "10 Stunden"^^xsd:string ;
+                                        :normalWorkingHoursPerWeek "50 Stunden"^^xsd:string ;
+                                        :text "In einzelnen Wochen eines Durchrechnungszeitraumes von acht Wochen kann die Normalarbeitszeit auf höchstens 50 Stunden pro Woche ausgedehnt werden, wenn sie innerhalb dieser acht Wochen im Durchschnitt 40 Stunden nicht überschreitet. In einzelnen Wochen eines Durchrechnungszeitraumes von einem Jahr kann die Normalarbeitszeit auf höchstens 48 Stunden pro Woche ausgedehnt werden, wenn sie innerhalb dieses Jahres im Durchschnitt 40 Stunden nicht überschreitet. In beiden Fällen darf die tägliche Normalarbeitszeit 10 Stunden nicht überschreiten. Eine Übertragung von Zeitguthaben in den nächsten Durchrechnungszeitraum ist in beiden Fällen zulässig."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang_geltungsbereich
+:arzt-angestellte-vlb-ang_geltungsbereich rdf:type owl:NamedIndividual ,
+                                                   :ContractualClause ;
+                                          :partOf :arzt-angestellte-vlb-ang ;
+                                          :heading "I. Geltungsbereich"^^xsd:string ;
+                                          :text "Durch diesen Kollektivvertrag wird das Dienstverhältnis der Angestellten bei niedergelassenen Ärzten, die der Ärztekammer für Vorarlberg angehören, geregelt. Als Angestellte bei Ärzten gelten jene Personen, die dort selbst Angestelltendienste leisten."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang_gesetzliche-bestimmungen
+:arzt-angestellte-vlb-ang_gesetzliche-bestimmungen rdf:type owl:NamedIndividual ,
+                                                            :ContractualClause ;
+                                                   :partOf :arzt-angestellte-vlb-ang ;
+                                                   :heading "II. Gesetzliche Bestimmungen"^^xsd:string ;
+                                                   :text "Soweit in diesem Kollektivvertrag nichts anderes vereinbart ist, gelten die Bestimmungen des Angestelltengesetzes, BGBl. Nr 292/1921, in der jeweils geltenden Fassung."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang_sonderzahlungen
+:arzt-angestellte-vlb-ang_sonderzahlungen rdf:type owl:NamedIndividual ,
+                                                   :BonusPayClause ;
+                                          :partOf :arzt-angestellte-vlb-ang ;
+                                          :heading "XI. Sonderzahlungen"^^xsd:string ;
+                                          :text "Dem Angestellten gebührt in jedem Kalenderjahr eine Sonderzahlung im Ausmaß von zwei Monatsgehältern, wobei die erste Hälfte spätestens am 1. Juli, die zweite Hälfte am 1. Dezember, fällig ist. Monatsgehälter im Sinne dieser Bestimmung sind ausschließlich die unter dem nachfolgenden Punkt XII. angeführten Gehaltsansätze, ohne Zulagen. Demnach sind allfällige Zulagen wie beispielsweise die Infektionszulage oder die Strahlenschutzzulage bei der Berechnung der Sonderzahlungen nicht zu berücksichtigen. Den während eines Kalenderjahres austretenden oder eintretenden Angestellten wird der aliquote Teil dieser Sonderzahlung bezahlt. Ein während des Jahres ausbezahlter Teil dieser Sonderzahlung ist auf den aliquoten Teil anzurechnen, wenn der Angestellte sein Dienstverhältnis selbst kündigt, ohne wichtigen Grund vorzeitig auflöst oder mit wichtigem Grund vorzeitig entlassen wird."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang_urlaub-1
+:arzt-angestellte-vlb-ang_urlaub-1 rdf:type owl:NamedIndividual ,
+                                            :ContractualClause ;
+                                   :partOf :arzt-angestellte-vlb-ang ;
+                                   :heading "VII. Urlaub > 1."^^xsd:string ;
+                                   :text "Für den Urlaub gelten, soweit in diesem Vertrag keine abweichenden Regelungen enthalten sind die gesetzlichen Bestimmungen des Angestelltengesetzes und das Bundesgesetz über die Vereinheitlichung des Urlaubsrechtes BGBl. Nr 390 vom 7. Juli 1976 in der jeweils geltenden Fassung."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#arzt-angestellte-vlb-ang_urlaub-2
+:arzt-angestellte-vlb-ang_urlaub-2 rdf:type owl:NamedIndividual ,
+                                            :ContractualClause ;
+                                   :partOf :arzt-angestellte-vlb-ang ;
+                                   :heading "VII. Urlaub > 2."^^xsd:string ;
+                                   :text "Angestellte bei Fachärzten für Radiologie, die im Strahlenbereich tätig sind, erhalten zusätzlich in jedem Dienstjahr 4 Arbeitstage Urlaub."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#bundesinnung_der_chemischen_gewerbe_und_der_denkmal_fassaden_und_gebaeudereiniger
+:bundesinnung_der_chemischen_gewerbe_und_der_denkmal_fassaden_und_gebaeudereiniger rdf:type owl:NamedIndividual ,
+                                                                                            :ContractParty ;
+                                                                                   :hasSignedContract :chemisches-gewerbe-arb ;
+                                                                                   :partyName "Bundesinnung der Chemischen Gewerbe und der Denkmal-, Fassaden- und Gebäudereiniger"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb
+:chemisches-gewerbe-arb rdf:type owl:NamedIndividual ,
+                                 :CollectiveAgreement ;
+                        :hasBonusPayClause :chemisches-gewerbe-arb_urlaubszuschuss_1 ,
+                                           :chemisches-gewerbe-arb_urlaubszuschuss_2 ;
+                        :hasContractPartyRepresentingEmployees :produktionsgewerkschaft_pro-ge ;
+                        :hasContractPartyRepresentingEmployers :bundesinnung_der_chemischen_gewerbe_und_der_denkmal_fassaden_und_gebaeudereiniger ;
+                        :hasContractualClause :chemisches-gewerbe-arb_geltungsbereich ,
+                                              :chemisches-gewerbe-arb_geltungsbereich_1 ,
+                                              :chemisches-gewerbe-arb_geltungsbereich_2 ,
+                                              :chemisches-gewerbe-arb_geltungsbereich_3 ,
+                                              :chemisches-gewerbe-arb_normalarbeitszeit_1_2 ;
+                        :hasNormalWorkingHoursClause :chemisches-gewerbe-arb_normalarbeitszeit_1_1 ;
+                        :collectiveAgreementUrl "https://www.kollektivvertrag.at/kv/chemische-industrie-arb"^^xsd:anyURI ;
+                        :dateOfComingIntoEffect "2023-01-01T00:00:00"^^xsd:dateTime ;
+                        :personalScopeOfApplication "Arbeiter"^^xsd:string ;
+                        :title "Kollektivvertrag für Chemisches Gewerbe" .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_geltungsbereich
+:chemisches-gewerbe-arb_geltungsbereich rdf:type owl:NamedIndividual ,
+                                                 :ContractualClause ;
+                                        :partOf :chemisches-gewerbe-arb ;
+                                        :heading "§ 1 Geltungsbereich"^^xsd:string ;
+                                        :text "Dieser Kollektivvertrag gilt:"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_geltungsbereich_1
+:chemisches-gewerbe-arb_geltungsbereich_1 rdf:type owl:NamedIndividual ,
+                                                   :ContractualClause ;
+                                          :partOf :chemisches-gewerbe-arb ;
+                                          :heading "§ 1 Geltungsbereich > a)"^^xsd:string ;
+                                          :text "Räumlich: Für das Gebiet der Republik Österreich"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_geltungsbereich_2
+:chemisches-gewerbe-arb_geltungsbereich_2 rdf:type owl:NamedIndividual ,
+                                                   :ContractualClause ;
+                                          :partOf :chemisches-gewerbe-arb ;
+                                          :heading "§ 1 Geltungsbereich > b)"^^xsd:string ;
+                                          :text """Fachlich:
+
+Für alle der Bundesinnung der Chemischen Gewerbe und der Denkmal-, Fassaden- und Gebäudereiniger angehörenden Mitgliedsbetriebe mit Ausnahme der Mitgliedsbetriebe der Berufszweige
+– Denkmal-, Fassaden- und Gebäudereiniger und alle sonstigen, nicht einem anderen Fachverband zugehörigen Reinigungsgewerbe,
+– Hausbetreuungstätigkeiten (Hausbesorger, Hausservice)
+– Schädlingsbekämpfer einschließlich Vogel- und Taubenabwehr.
+
+Als Betriebe des chemischen Gewerbes im Sinne dieses Kollektivvertrages sind jene Betriebe einschließlich deren unselbständigen Nebenbetrieben mit nicht chemischer Erzeugung sowie der zugehörigen Auslieferungslager, Büros und Verkaufshallen anzusehen. Für die Betriebe, die neben der Bundesinnung der Chemischen Gewebe und der Denkmal-, Fassaden- und Gebäudereiniger noch anderen Fachverbänden angehören, finden die Bestimmungen des § 9 Arbeitsverfassungsgesetz Anwendung."""^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_geltungsbereich_3
+:chemisches-gewerbe-arb_geltungsbereich_3 rdf:type owl:NamedIndividual ,
+                                                   :ContractualClause ;
+                                          :partOf :chemisches-gewerbe-arb ;
+                                          :heading "§ 1 Geltungsbereich > c)"^^xsd:string ;
+                                          :text "Persönlich: Für alle Arbeiter und Arbeiterinnen sowie die gewerblichen Lehrlinge, im folgenden Arbeitnehmer genannt"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_normalarbeitszeit_1_1
+:chemisches-gewerbe-arb_normalarbeitszeit_1_1 rdf:type owl:NamedIndividual ,
+                                                       :NormalWorkingHoursClause ;
+                                              :partOf :chemisches-gewerbe-arb ;
+                                              :heading "§ 2 Normalarbeitszeit > 1.Bei nichtkontinuierlicher Arbeitsweise: > a)"^^xsd:string ;
+                                              :normalWorkingHoursPerWeek "40 Stunden"^^xsd:string ;
+                                              :text "Sofern nicht zwingende gesetzliche Bestimmungen entgegenstehen, beträgt die normale wöchentliche Arbeitszeit ohne Einrechnung der Pausen für sämtliche Arbeitnehmer(innen) 40 Stunden. Soweit in diesem Rahmenkollektivvertrag nicht ausdrücklich Ausnahmen festgesetzt sind, werden Pausen nicht entlohnt."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_normalarbeitszeit_1_2
+:chemisches-gewerbe-arb_normalarbeitszeit_1_2 rdf:type owl:NamedIndividual ,
+                                                       :ContractualClause ;
+                                              :partOf :chemisches-gewerbe-arb ;
+                                              :heading "§ 2 Normalarbeitszeit > 1.Bei nichtkontinuierlicher Arbeitsweise: > b)"^^xsd:string ;
+                                              :text "Die Arbeitszeit im Betrieb ist möglichst auf 5 Tage aufzuteilen; Voraussetzung ist, dass diesbezüglich zwischen Arbeitgeber(in) und Arbeitnehmer(in) Einverständnis besteht."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_urlaubszuschuss_1
+:chemisches-gewerbe-arb_urlaubszuschuss_1 rdf:type owl:NamedIndividual ,
+                                                   :BonusPayClause ;
+                                          :partOf :chemisches-gewerbe-arb ;
+                                          :heading "§ 6 Urlaubszuschuss > 1."^^xsd:string ;
+                                          :text "Der(die) Arbeitnehmer(in) hat einmal in jedem Arbeitsjahr zum gesetzlichen Urlaubsentgelt Anspruch auf einen Urlaubszuschuss in der Höhe von 4 Wochenlöhnen bzw. Lehrlingseinkommen."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#chemisches-gewerbe-arb_urlaubszuschuss_2
+:chemisches-gewerbe-arb_urlaubszuschuss_2 rdf:type owl:NamedIndividual ,
+                                                   :BonusPayClause ;
+                                          :partOf :chemisches-gewerbe-arb ;
+                                          :heading "§ 6 Urlaubszuschuss > 2."^^xsd:string ;
+                                          :text "Der Urlaubszuschuss wird nach den gleichen Grundsätzen wie das Urlaubsentgelt errechnet."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#gewerkschaft_der_gemeindebediensteten_kunst_medien_sport_freie_berufe
+:gewerkschaft_der_gemeindebediensteten_kunst_medien_sport_freie_berufe rdf:type owl:NamedIndividual ,
+                                                                                :ContractParty ;
+                                                                       :hasSignedContract :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                       :partyName "Gewerkschaft der Gemeindebediensteten – Kunst, Medien, Sport, freie Berufe"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#gewerkschaft_gpa
+:gewerkschaft_gpa rdf:type owl:NamedIndividual ,
+                           :ContractParty ;
+                  :hasSignedContract :arzt-angestellte-vlb-ang ,
+                                     :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                  :partyName "Gewerkschaft GPA"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang rdf:type owl:NamedIndividual ,
+                                                                                   :CollectiveAgreement ;
+                                                                          :hasAnniversaryBonusPayClause :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_54 ,
+                                                                                                        :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_67_4 ;
+                                                                          :hasContractPartyRepresentingEmployees :gewerkschaft_der_gemeindebediensteten_kunst_medien_sport_freie_berufe ,
+                                                                                                                 :gewerkschaft_gpa ,
+                                                                                                                 :younion ;
+                                                                          :hasContractPartyRepresentingEmployers :oesterreichs_e-wirtschaft ,
+                                                                                                                 :wirtschaftskammer_oesterreich ;
+                                                                          :hasContractualClause :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_1 ,
+                                                                                                :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_2 ,
+                                                                                                :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_4 ,
+                                                                                                :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_5 ,
+                                                                                                :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_3 ;
+                                                                          :collectiveAgreementUrl "https://www.kollektivvertrag.at/kv/holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang"^^xsd:anyURI ;
+                                                                          :dateOfComingIntoEffect "1963-01-01T00:00:00"^^xsd:dateTime ;
+                                                                          :personalScopeOfApplication "Angestellte"^^xsd:string ,
+                                                                                                      "Arbeiter"^^xsd:string ;
+                                                                          :title "Kollektivvertrag für Holding Graz Kommunale Dienstleistungen Gmbh Versorgungsbetriebe"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_1
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_1 rdf:type owl:NamedIndividual ,
+                                                                                       :ContractualClause ;
+                                                                              :partOf :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                              :heading "§ 1 > (1)"^^xsd:string ;
+                                                                              :text "Dieser Kollektivvertrag wird zwischen Österreichs E-Wirtschaft und dem Fachverband der Gas- und Wärmeversorgungsunternehmungen einerseits und dem Österreichischen Gewerkschaftsbund, Gewerkschaft der Gemeindebediensteten – Kunst, Medien, Sport, freie Berufe andererseits für die Versorgungsbetriebe und den zentralen Bereich der Holding Graz – Kommunale Dienstleistungen GmbH (im Folgenden kurz “Holding Graz GmbH” genannt) abgeschlossen."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_2
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_2 rdf:type owl:NamedIndividual ,
+                                                                                       :ContractualClause ;
+                                                                              :partOf :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                              :heading "§ 1 > (2)"^^xsd:string ;
+                                                                              :text "Seine Wirksamkeit erstreckt sich auf alle DienstnehmerInnen der Versorgungsbetriebe und des zentralen Bereiches der Holding Graz GmbH sowie auf alle DienstnehmerInnen der Energie Graz GmbH bzw. Energie Graz GmbH & Co KG und der Stromnetz Graz GmbH bzw. Stromnetz Graz GmbH & Co KG, der ITG Informationstechnik GmbH, der Citycom Telekommunikation GmbH, der Bestattung Graz GmbH sowie auf jene DienstnehmerInnen, die in andere der Holding Graz GmbH verbundenen Betriebe zur Dienstleitung überlassen werden. Ausgenommen sind jedoch die in vorgenannten Betrieben tätigen Saison- und Ferialbeschäftigten, sowie AbsolventInnen eines Pflichtpraktikums und fallweise Beschäftigte (z.B. Wasser- bzw. StromzählerableserInnen)."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_4
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_4 rdf:type owl:NamedIndividual ,
+                                                                                       :ContractualClause ;
+                                                                              :partOf :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                              :heading "§ 1 > (4)"^^xsd:string ;
+                                                                              :text "Dienstzeiten, die von einer/einem DienstnehmerIn bei der Gemeinde Graz unmittelbar vor der Abordnung zur Holding Graz GmbH ununterbrochen zurückgelegt wurden oder auf Grund einer Abordnung in einer anderen Abteilung der Holding Graz GmbH zurückgelegt werden, werden in jeder Beziehung den bei den Versorgungsbetrieben und dem zentralen Bereich zurückgelegten Dienstzeiten gleichgestellt."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_5
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_1_5 rdf:type owl:NamedIndividual ,
+                                                                                       :ContractualClause ;
+                                                                              :partOf :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                              :heading "§ 1 > (5)"^^xsd:string ;
+                                                                              :text "Mit Inkrafttreten dieses Kollektivvertrages tritt der bisherige Kollektivvertrag für die DienstnehmerInnen der Versorgungsbetriebe und des zentralen Bereiches der Holding Graz GmbH in der geltenden Fassung außer Kraft."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_3
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_3 rdf:type owl:NamedIndividual ,
+                                                                                     :ContractualClause ;
+                                                                            :partOf :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                            :heading "§ 3"^^xsd:string ;
+                                                                            :text "Die ArbeiterInnen werden in Lohngruppen und die Angestellten in Verwendungsgruppen eingereiht."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_54
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_54 rdf:type owl:NamedIndividual ,
+                                                                                      :AnniversaryBonusPayClause ;
+                                                                             :partOf :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                             :heading "§ 54"^^xsd:string ;
+                                                                             :text "Die Jubiläumsgabe beträgt bei Vollendung einer Dienstzeit von 25 Jahren 150 v.H. und bei Vollendung von 35 Jahren 300 v.H. des Monatslohnes (Monatsgehaltes), jedoch ohne alle anderen Zulagen, die der/dem DienstnehmerIn für den Monat gebührt, in den das Dienstjubiläum fällt. (1.7.2000)"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_67_4
+:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang_67_4 rdf:type owl:NamedIndividual ,
+                                                                                        :AnniversaryBonusPayClause ;
+                                                                               :partOf :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                                                                               :heading "§ 67 > (4)"^^xsd:string ;
+                                                                               :text "Im Falle des Absatzes (1) lit. k) kann der dienstfreie Tag in der Woche des Dienstjubiläums oder in der Woche der Jubiläumsfeier genommen werden."^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#oesterreichs_e-wirtschaft
+:oesterreichs_e-wirtschaft rdf:type owl:NamedIndividual ,
+                                    :ContractParty ;
+                           :hasSignedContract :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                           :partyName "Österreichs E-Wirtschaft"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#produktionsgewerkschaft_pro-ge
+:produktionsgewerkschaft_pro-ge rdf:type owl:NamedIndividual ,
+                                         :ContractParty ;
+                                :hasSignedContract :chemisches-gewerbe-arb ;
+                                :partyName "Produktionsgewerkschaft - PRO-GE"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#wirtschaftskammer_oesterreich
+:wirtschaftskammer_oesterreich rdf:type owl:NamedIndividual ,
+                                        :ContractParty ;
+                               :hasSignedContract :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+                               :partyName "Wirtschaftskammer Österreich"^^xsd:string .
+
+
+###  http://localhost:8000/collective_agreements.ttl#younion
+:younion rdf:type owl:NamedIndividual ,
+                  :ContractParty ;
+         :hasSignedContract :holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang ;
+         :partyName "Younion"^^xsd:string .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

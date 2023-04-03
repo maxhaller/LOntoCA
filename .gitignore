@@ -1,0 +1,6 @@
+kg.ttl
+.idea
+__pycache__
+*.egg-info
+*.csv
+/data/html/*.html

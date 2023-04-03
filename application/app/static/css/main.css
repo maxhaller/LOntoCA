@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: #444;
+}
+
+.app-content {
+    margin: 2rem
+}
+
+.nav-line {
+    width: 100%;
+}
+
+.content-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    max-width: 60%;
+    text-align: justify;
+    text-justify: inter-word;
+    display: flex;
+    flex-direction: column;
+}
+
+.content > .tabellen_wrapper {
+    margin: auto;
+}
+
+.tabellen_wrapper > table {
+    width: fit-content!important;
+}

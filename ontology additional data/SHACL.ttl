@@ -1,0 +1,99 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix :    <https://semantics.id/ns/CollectiveAgreement#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+
+ ###### add SHACL vocabulary ###### 
+
+:CollectiveAgreementShape a sh:NodeShape ;
+	sh:targetClass        :CollectiveAgreement ;
+	sh:property [
+		sh:path     :dateOfComingIntoEffect ;
+		sh:maxCount 1 ;
+		sh:minCount 1 ;
+		sh:datatype xsd:dateTime ;
+	] ;
+	sh:property [
+		sh:path     :hasContractParty ;
+		sh:nodeKind sh:IRI ;
+		sh:class    :ContractParty ;
+		sh:minCount 2
+	] ;
+	sh:property [
+		sh:path     :hasContractPartyRepresentingEmployees ;
+		sh:nodeKind sh:IRI ;
+		sh:class    :ContractParty ;
+		sh:minCount 1
+	] ;
+	sh:property [
+		sh:path     :hasContractPartyRepresentingEmployers ;
+		sh:nodeKind sh:IRI ;
+		sh:class    :ContractParty ;
+		sh:minCount 1
+	] ;
+	sh:property [
+		sh:path     :personalScopeOfApplication ;
+		sh:minCount 1 ;
+		sh:maxCount 2 ;
+		sh:in ("Angestellte" "Arbeiter") ;
+		sh:datatype xsd:string ;
+	] ;
+	sh:property [
+		sh:path     :title ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+	] ;
+	sh:property [
+		sh:path     :collectiveAgreementUrl ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:anyURI ;
+	] .
+
+:ContractPartyShape a sh:NodeShape ;
+	sh:targetClass	  :ContractParty ;
+	sh:property [
+		sh:path     :hasSignedContract ;
+		sh:minCount 1 ;
+		sh:nodeKind sh:IRI ;
+		sh:class    :CollectiveAgreement ;
+	] ;
+	sh:property [
+		sh:path     :partyName ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+	] .
+
+:ContractualClauseShape a sh:NodeShape ;
+	sh:targetClass         :ContractualClause ;
+	sh:property [
+		sh:path      :partOf ;
+		sh:minCount  1 ;
+		sh:maxCount  1 ;
+		sh:nodeKind sh:IRI ;
+		sh:class    :CollectiveAgreement ;
+	] ;
+	sh:property [
+		sh:path      :heading ;
+		sh:minCount  1 ;
+		sh:maxCount  1 ;
+		sh:datatype  xsd:string ;
+	] ;
+	sh:property [
+		sh:path      :text ;
+		sh:minCount  1 ;
+		sh:maxCount  1 ;
+		sh:datatype  xsd:string ;
+	] .
+
+:NormalWorkingHoursClauseShape a sh:NodeShape ;
+	sh:targetClass        :NormalWorkingHoursClause ;
+	sh:property [
+		sh:path     :workingTime ;
+		sh:minCount 1 ;
+		sh:datatype  xsd:string ;
+	] .

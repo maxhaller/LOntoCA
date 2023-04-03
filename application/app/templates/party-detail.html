@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block ourpage %}
+
+<div class="app-content">
+
+    {% if party[0] %}
+
+    <h1><a href="/parties/{{party[0]['p']}}">{{party[0]['p_name']}}</a></h1>
+
+    Hat unterzeichnet:
+    {% for s in party %}
+    <li><a href="/contracts/{{s['c']}}">{{ s['n'] }}</a></li>
+    {% endfor %}
+
+    {% endif %}
+</div>
+
+{% endblock %}

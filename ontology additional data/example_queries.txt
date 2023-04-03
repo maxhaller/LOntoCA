@@ -1,0 +1,153 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX :    <http://localhost:8000/ca.owl#>
+PREFIX re:  <http://localhost:8000/ns/resource#>
+
+
+
+# List all collective agreements with their title and url
+
+SELECT ?contract (str(?c_title) AS ?contract_title) (str(?c_url) AS ?url) WHERE {
+	?contract a :CollectiveAgreement.
+	?contract :title ?c_title .
+	?contract :collectiveAgreementUrl ?c_url
+} ORDER BY ?contract_title
+
+##############################
+
+# List the path between first and last paragraph of one contract
+
+SELECT ?begin ?end ?midI ?midJ WHERE {
+	re:chemisches-gewerbe-arb :hasContractualClause ?begin .
+  	?begin :hasNextClause* ?midI .
+	FILTER NOT EXISTS { [] :hasNextClause ?begin }
+  	?midI :hasNextClause ?midJ .
+  	?midJ :hasNextClause* ?end .
+  	FILTER NOT EXISTS { ?end :hasNextClause [] }
+} ORDER BY ?start ?end
+
+##############################
+
+# List all collective agreements with their titles and urls that match the a search string
+
+SELECT ?contract (str(?t) AS ?title) (str(?c_url) AS ?url) WHERE {
+	?contract a :CollectiveAgreement .
+	?contract :title ?t ;
+		:collectiveAgreementUrl ?c_url .
+	FILTER REGEX (?t, "or", "i")
+} ORDER BY ?title
+
+##############################
+
+# Get date of coming into effect of a specific collective agreement
+
+SELECT (str(?d) AS ?date) WHERE {
+	re:chemisches-gewerbe-arb :dateOfComingIntoEffect ?d
+}
+
+##############################
+
+# Get the personal scope of application of a specific collective agreement
+
+SELECT (str(?wt) AS ?scope) WHERE {
+	re:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang :personalScopeOfApplication ?wt
+}
+
+##############################
+
+# Check if collective agreement requires anniversary bonus payments (positive case)
+
+ASK {
+	re:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang :hasAnniversaryBonusPayClause ?o
+}
+
+##############################
+
+# Check if collective agreement requires anniversary bonus payments (negative case)
+
+ASK {
+	re:arzt-angestellte-vlb-ang :hasAnniversaryBonusPayClause ?o
+}
+
+##############################
+
+# List all legally binding rules (heading and text) for a certain collective agreement
+
+SELECT (str(?h) as ?heading) (str(?t) as ?text) WHERE {
+	re:arzt-angestellte-vlb-ang :hasContractualClause ?o .
+	?o :heading ?h ;
+	     :text ?t .
+} ORDER BY ?heading
+
+##############################
+
+# List all legally binding rules (heading and text) for a certain collective agreement regarding the anniversary bonus pay
+
+SELECT (str(?h) as ?heading) (str(?t) as ?text) WHERE {
+	re:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang :hasAnniversaryBonusPayClause ?o .
+	?o :heading ?h ;
+	     :text ?t .
+} ORDER BY ?heading
+
+##############################
+
+# List all legally binding rules (heading and text) for a certain collective agreement regarding bonus pay
+
+SELECT (str(?h) as ?heading) (str(?t) as ?text) WHERE {
+	re:chemisches-gewerbe-arb :hasBonusPayClause ?o .
+	?o :heading ?h ;
+	     :text ?t .
+} ORDER BY ?heading
+
+##############################
+
+# List all legally binding rules (heading and text) for a certain collective agreement regarding bonus pay
+
+SELECT (str(?h) as ?heading) (str(?t) as ?text) WHERE {
+	re:arzt-angestellte-vlb-ang :hasNormalWorkingHoursClause ?o .
+	?o :heading ?h ;
+	     :text ?t .
+} ORDER BY ?heading
+
+##############################
+
+# Get collective agreement of which a specific contractual clause is part of
+
+SELECT ?contract (str(?c_title) AS ?contract_title) (str(?c_url) AS ?url) WHERE {
+	re:arzt-angestellte-vlb-ang_arbeitszeit_1 :partOf ?contract .
+	?contract :title ?c_title .
+	?contract :collectiveAgreementUrl ?c_url
+}
+
+##############################
+
+# List all contract parties and their names on employers' side
+
+SELECT ?employer_side_party (str(?e) AS ?party_name) WHERE {
+	re:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang :hasContractPartyRepresentingEmployers ?employer_side_party .
+	?employer_side_party :partyName ?e
+}
+
+##############################
+
+# List all contract parties and their names on employees' side
+
+SELECT ?employee_side_party (str(?e) AS ?party_name) WHERE {
+	re:holding-graz-kommunale-dienstleistungen-gmbh-versorgungsbetriebe-arb-ang :hasContractPartyRepresentingEmployees ?employee_side_party .
+	?employee_side_party :partyName ?e
+}
+
+
+##############################
+
+# List all collective agreements (and their title and url) a party has signed
+
+SELECT ?contract (str(?c_title) AS ?contract_title) (str(?c_url) AS ?url) WHERE {
+	re:gewerkschaft_gpa :hasSignedContract ?contract .
+	?contract :title ?c_title .
+	?contract :collectiveAgreementUrl ?c_url
+} ORDER BY ?contract_title
+
+##############################

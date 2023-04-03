@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+{% block ourpage %}
+
+<div class="app-content">
+
+    <h1><a href="/contracts/{{contract_info[0]['c']}}">{{contract_info[0]['ti']}}</a></h1>
+    In Kraft seit <b>{{ contract_info[0]['d'] }}</b> <br>
+    Gilt für <b>{{ contract_info[0]['scope'] }}</b> <br><br>
+
+    {% if contract_info[0]['e'] is not none %}
+    Auf <b>Arbeitnehmerseite</b> unterzeichnet von:
+    {% for p in contract_info[0]['e'] %}
+    <li><a href="/parties/{{p[0]}}">{{ p[1] }}</a></li>
+    {% endfor %}
+    <br>
+    {% endif %}
+
+    {% if contract_info[0]['r'] is not none %}
+    Auf <b>Arbeitgeberseite</b> unterzeichnet von:
+    {% for p in contract_info[0]['r'] %}
+    <li><a href="/parties/{{p[0]}}">{{ p[1] }}</a></li>
+    {% endfor %}
+    <br>
+    {% endif %}
+
+    <br>
+
+    {% if contract_info[1] %}
+        In diesem Kollektivvertrag sind <b>Jubiläumsgelder</b> vorgesehen:
+        {% for clause in contract_info[1] %}
+        <li><a href="/clauses/{{clause['iri']}}">{{ clause['c'] }}</a></li>
+        {% endfor %}
+    {% else %}
+        In diesem Kollektivvertrag sind <b>keine Jubiläumsgelder</b> vorgesehen.
+    {% endif %}
+
+    <br><br>
+
+    {% if contract_info[2] %}
+    Klauseln, die <b>Sonderzahlungen</b> betreffen:
+    {% for clause in contract_info[2] %}
+        <li><a href="/clauses/{{clause['iri']}}">{{ clause['c'] }}</a></li>
+    {% endfor %}
+
+    <br><br>
+
+    {% endif %}
+
+
+
+    {% if contract_info[3] | length > 0 %}
+    Klauseln, die die <b>Normalarbeitszeit</b> regeln:
+
+    <table id="data" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Bezeichnung</th>
+            <th>Tägliche Normalarbeitszeit</th>
+            <th>Wöchentliche Normalarbeitszeit</th>
+            <th>Durchrechnungszeitraum</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for clause in contract_info[3] %}
+        <tr>
+            <td><a href="/contracts/{{clause['iri']}}">{{ clause['c'] }}</a></td>
+
+            {% if clause['d'] is not none %}
+                <td>{{ clause['d'] }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+
+            {% if clause['w'] is not none %}
+            <td>{{ clause['w'] }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
+            {% if clause['ap'] is not none %}
+            <td>{{ clause['ap'] }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <br><br>
+
+    Alle Klauseln dieses Kollektivvertrags:
+    {% for clause in contract_info[4] %}
+    <li><a href="/clauses/{{clause['c']}}">{{ clause['t'] }}</a></li>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

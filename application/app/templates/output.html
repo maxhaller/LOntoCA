@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block ourpage %}
+
+<<h1 class="display-4" style="margin: 3rem">
+
+    Probability of leather being authentic: {{results["prob_authentic"]}} <br><br>
+    Probability of leather being fake: {{results["prob_faux"]}} <br><br>
+    Final result: <span style="color: red">{{results["result"]}}</span>
+
+</h1>
+
+
+{% endblock %}

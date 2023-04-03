@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block ourpage %}
+
+<div class="app-content">
+
+    <h1>Kollektivverträge</h1>
+
+    <table id="data" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Persönlicher Anwendungsbereich</th>
+            <th>Inkrafttreten</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contract in contracts %}
+        <tr>
+            <td><a href="/contracts/{{contract['c']}}">{{ contract['n'] }}</a></td>
+            <td>{{ contract['scope'] }}</td>
+            <td>{{ contract['d'] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

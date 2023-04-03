@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block ourpage %}
+
+<div class="app-content">
+
+    <div class="nav-line">
+        <div style="float: left">
+            {% if clause['prev_clause_iri'] is not none %}
+            <a href="/clauses/{{clause['prev_clause_iri']}}">(Zurück) {{ clause['prev_clause_name'] }}</a></li>
+            {% endif %}
+        </div>
+        <div style="float: right">
+            {% if clause['next_clause_iri'] is not none %}
+            <a href="/clauses/{{clause['next_clause_iri']}}">{{ clause['next_clause_name'] }} (Weiter)</a></li>
+            {% endif %}
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="content-wrapper">
+        <div>
+
+        <h1>{{ clause['clause_heading'] }}</h1>
+
+        Teil von <a href="/contracts/{{clause['contract_iri']}}">{{ clause['contract_name'] }}</a>
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+    <br><br>
+
+    <div class="content-wrapper">
+        <div class="content">
+            {{ clause['text'] | safe }}
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
