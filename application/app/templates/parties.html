@@ -5,6 +5,15 @@
 
     <h1>Kollektivvertragsparteien</h1>
 
+    <br>
+
+    <form id="form">
+        <div class="form-group">
+            <label for="searchString">Nach Kollektivvertragsparteien suchen</label>
+            <input type="text" class="form-control" id="searchString" name="searchString" placeholder="z.B. Gemeinde Wien">
+        </div>
+    </form>
+
     <table id="data" class="table table-striped">
         <thead>
         <tr>
@@ -12,7 +21,7 @@
             <th>Vertragsseite</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody">
         {% for party in parties %}
         <tr>
             <td><a href="/parties/{{party['p_iri']}}">{{ party['p_name'] }}</a></td>
@@ -23,5 +32,33 @@
     </table>
 
 </div>
+
+<script>
+/* event listener */
+input_element = document.getElementById("searchString")
+form_element = document.getElementById("form")
+input_element.addEventListener('input', function(event) {
+       event.preventDefault();
+       const formData = new FormData(form_element);
+       fetch('/', {
+            method: 'POST',
+            body: formData
+       }).then(function(response) {
+            response.json().then(function(value) {
+                replaceTBody(value);
+            });
+       });
+});
+
+tbody = document.getElementById("tbody")
+function replaceTBody(value) {
+    console.log(value);
+    new_table_content = '';
+    for (const [key, v] of Object.entries(value)) {
+        new_table_content += '<tr><td><a href="/contracts/' + v['c'] + '">' + v['n'] + '</a></td><td>' + v['d'] + '</td></tr>'
+    }
+    tbody.innerHTML = new_table_content
+}
+</script>
 
 {% endblock %}

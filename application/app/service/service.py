@@ -63,9 +63,9 @@ class RequestService:
 class AppService:
 
     @staticmethod
-    def get_contracts():
+    def get_contracts(substring: str = ''):
         return ResponseService.get_row_attributes(
-            result_rows=RequestService.get_query_results(query=queries.GET_CONTRACTS_WITH_TITLE(),
+            result_rows=RequestService.get_query_results(query=queries.GET_CONTRACTS_WITH_TITLE(substring=substring.lower()),
                                                          query_type=QUERY_TYPE.SELECT),
             attr_trans={
                 'c':        TRANSFORMATIONS.REMOVE_NS,
@@ -145,9 +145,9 @@ class AppService:
         return [single_contract, anniversary_bonus_pay_clauses, bonus_pay_clauses, normal_working_hours_clauses, all_clauses]
 
     @staticmethod
-    def get_parties():
+    def get_parties(substring: str = ''):
         return ResponseService.get_row_attributes(
-            result_rows=RequestService.get_query_results(query=queries.GET_CONTRACT_PARTIES(),
+            result_rows=RequestService.get_query_results(query=queries.GET_CONTRACT_PARTIES(substring=substring.lower()),
                                                          query_type=QUERY_TYPE.SELECT),
             attr_trans={
                 'p_iri': TRANSFORMATIONS.REMOVE_NS,

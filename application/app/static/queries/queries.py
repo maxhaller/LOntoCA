@@ -1,17 +1,27 @@
-def GET_CONTRACTS_WITH_TITLE():
-    return'''
+def GET_CONTRACTS_WITH_TITLE(substring: str):
+    return f'''
     PREFIX : <https://semantics.id/ns/>
     PREFIX re: <https://semantics.id/ns/resource/>
     
-    SELECT DISTINCT ?c ?n (GROUP_CONCAT(?t) AS ?scope) ?d 
-    WHERE {
-        ?c a :CollectiveAgreement . 
-        ?c :title ?n . 
-        ?c :personalScopeOfApplication ?t . 
-        ?c :dateOfComingIntoEffect ?d
-    } 
-    GROUP BY ?c ?n ?d 
-    ORDER BY ?n
+    SELECT * WHERE {{
+      {{   SELECT DISTINCT ?c ?n (GROUP_CONCAT(?t) AS ?scope) ?d 
+    WHERE {{
+      ?c a :CollectiveAgreement . 
+      ?c :title ?n . 
+      ?c :personalScopeOfApplication ?t . 
+      ?c :dateOfComingIntoEffect ?d
+      FILTER REGEX(lcase(str(?c)), "{substring}")
+    }} GROUP BY ?c ?n ?d ORDER BY ?n }}
+      UNION
+      {{   SELECT DISTINCT ?c ?n (GROUP_CONCAT(?t) AS ?scope) ?d 
+    WHERE {{
+      ?c a :CollectiveAgreement . 
+      ?c :title ?n . 
+      ?c :personalScopeOfApplication ?t . 
+      ?c :dateOfComingIntoEffect ?d
+      FILTER REGEX(lcase(str(?n)), "{substring}")
+    }} GROUP BY ?c ?n ?d ORDER BY ?n }}
+    }} GROUP BY ?c ?n ?d ?scope ORDER BY ?n
     '''
 
 
@@ -148,18 +158,31 @@ def FIND_CLAUSE(substring: str):
     }}
     '''
 
-def GET_CONTRACT_PARTIES():
+def GET_CONTRACT_PARTIES(substring: str):
     return f'''
+    
     PREFIX : <https://semantics.id/ns/> 
     PREFIX re: <https://semantics.id/ns/resource/>
-        
-    SELECT ?p_iri ?p_name ?side WHERE {{
-        ?p_iri a :ContractParty .
-      ?p_iri :partyName ?p_name .
-      BIND (if ( EXISTS {{ ?c1 a :CollectiveAgreement . ?c1 :hasContractPartyRepresentingEmployees ?p_iri }}, 
-          if ( EXISTS {{ ?c2 a :CollectiveAgreement . ?c2 :hasContractPartyRepresentingEmployers ?p_iri }}, 'Arbeitnehmer / Arbeitgeber' , 'Arbeitnehmer' ), 
-          if ( EXISTS {{ ?c3 a :CollectiveAgreement . ?c3 :hasContractPartyRepresentingEmployers ?p_iri }}, 'Arbeitgeber' , 'Unbekannt' )) AS ?side)
-      }}
+    
+    SELECT * WHERE {{
+    {{ SELECT ?p_iri ?p_name ?side WHERE {{
+    ?p_iri a :ContractParty .
+    ?p_iri :partyName ?p_name .
+    BIND (if ( EXISTS {{ ?c1 a :CollectiveAgreement . ?c1 :hasContractPartyRepresentingEmployees ?p_iri }},
+    if ( EXISTS {{ ?c2 a :CollectiveAgreement . ?c2 :hasContractPartyRepresentingEmployers ?p_iri }}, 'Arbeitnehmer / Arbeitgeber' , 'Arbeitnehmer' ),
+    if ( EXISTS {{ ?c3 a :CollectiveAgreement . ?c3 :hasContractPartyRepresentingEmployers ?p_iri }}, 'Arbeitgeber' , 'Unbekannt' )) AS ?side) .
+    FILTER REGEX(lcase(str(?p_name)), "{substring}")
+    }} }}
+    UNION
+    {{ SELECT ?p_iri ?p_name ?side WHERE {{
+    ?p_iri a :ContractParty .
+    ?p_iri :partyName ?p_name .
+    BIND (if ( EXISTS {{ ?c1 a :CollectiveAgreement . ?c1 :hasContractPartyRepresentingEmployees ?p_iri }},
+    if ( EXISTS {{ ?c2 a :CollectiveAgreement . ?c2 :hasContractPartyRepresentingEmployers ?p_iri }}, 'Arbeitnehmer / Arbeitgeber' , 'Arbeitnehmer' ),
+    if ( EXISTS {{ ?c3 a :CollectiveAgreement . ?c3 :hasContractPartyRepresentingEmployers ?p_iri }}, 'Arbeitgeber' , 'Unbekannt' )) AS ?side) .
+    FILTER REGEX(lcase(str(?p_iri)), "{substring}")
+    }} }}
+    }}
     '''
 
 def GET_SIGNED_CONTRACTS(substring: str):

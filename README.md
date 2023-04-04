@@ -24,10 +24,10 @@ expression is used, which ultimately obscures the meaning.
 This form of lawmaking practice is problematic. For example, the 
 collective agreement [Collective Agreement for Guarding Bodies 
 in the Guarding Industry](https://www.wko.at/service/kollektivvertrag/kollektivvertrag-wachorgane-bewachungsgewerbe-2021.html#heading_8) 
-§ 8 (2) Z 2 states "<em>Working hours 
+§ 8 (2) Z 2 states "*Working hours 
 that exceed the limits of the maximum permissible daily working 
 time or weekly working time (60 hours) shall be remunerated as 
-overtime with an overtime surcharge of 50% [translated]</em>". This 
+overtime with an overtime surcharge of 50% [translated]*". This 
 clause must be a mistake in the legislation, as it would mean that 
 employees can only work overtime if they work an illegal number of hours.   
 
@@ -120,12 +120,35 @@ This page lists all collective agreements that are in the knowledge graph (curre
 
 ![plot](./demo-screenshots/contracts-overview-page.png)
 
+A user can search for collective agreements by entering a search string in the input field on the top.
+
+![plot](./demo-screenshots/contracts-overview-search.png)
+
 ### Contract Details
 
 This page displays automatically extracted information for one contract.
+On top the title, date of coming into effect and the contract parties are listed.
+Then, if a contract demands anniversary bonus pay ("*Jubiläumsgeld*"), the respective 
+clauses are displayed. The same applies to bonus pay ("*13. und 14. Monatsgehalt*") 
+clauses and clauses that determine the legal regular working hours ("*Normalarbeitszeit*") 
+and the period over which the working hours are averaged ("*Durchrechnungszeitraum*").
 
 ![plot](./demo-screenshots/contract-detail-page-1.png)
+
+For clauses concerning working hours, the application extract values which
+are displayed in a table next to the respective clause. Since the application cannot
+yet understand the complex rules of multiple clauses, a user has to read these clauses to
+fully understand which value has to be applied when. Furthermore, on the bottom, there
+is a full list of clauses of this contract. For this application, a clause is not the same
+as a paragraph. The application splits the contract in the smallest semantically complete
+bits possible (this is done when parsing the documents).
+
 ![plot](./demo-screenshots/contract-detail-page-2.png)
+
+The screenshot below shows how it looks like when a contract does not demand
+anniversary bonus pay. A user can instantly see that and does not have to
+go through the whole contract.
+
 ![plot](./demo-screenshots/contract-detail-page-3.png)
 
 ### Contract Parties Overview
@@ -133,6 +156,10 @@ This page displays automatically extracted information for one contract.
 This page lists all entities that have signed at least one collective agreement.
 
 ![plot](./demo-screenshots/parties-overview-page.png)
+
+A user can search for contract parties by entering a search string in the input field on the top.
+
+![plot](./demo-screenshots/parties-overview-search.png)
 
 ### Contract Party 
 
@@ -144,9 +171,8 @@ This page displays which collective agreements were signed by one contract party
 
 ## Further Development
 
-Since this is just a proof-of-concept, the final application is <em>very</em> basic and does not
-offer essential functionalities such as a search function. Furthermore, the knowledge graph could
-be extended by adding more attributes to the extraction process.
+Since this is just a proof-of-concept, the final application is *very* basic. 
+The knowledge graph could be extended by adding more attributes to the extraction process.
 
 The final goal would be to extend the ontology to also represent legal rules themselves and 
 extract these data from the clauses which would then allow for automatic decision-making.
@@ -170,12 +196,14 @@ are not extracted correctly.
 
 4. Current application is prone to SPARQL-injections.
 
+5. Code is barely documented.
+
 #### Usability Issues
 
 1. Some contracts have the same title which makes it impossible for a user to distinguish between
    them.
 
-2. The current design is <em>extremely</em> basic and not practical.
+2. The current design is *extremely* basic and not practical.
 
 ### Disclaimer
 
