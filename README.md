@@ -196,8 +196,6 @@ are not extracted correctly.
 
 4. Current application is prone to SPARQL-injections.
 
-5. Code is barely documented.
-
 #### Usability Issues
 
 1. Some contracts have the same title which makes it impossible for a user to distinguish between
