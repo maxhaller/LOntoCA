@@ -1,10 +1,10 @@
-@prefix : <http://localhost:8000/collective_agreements.ttl#> .
+@prefix : <https://semantics.id/ns/CollectiveAgreement#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://localhost:8000/collective_agreements.ttl> .
+@base <https://semantics.id/ns/CollectiveAgreement#> .
 
 <http://localhost:8000/collective_agreements.ttl> rdf:type owl:Ontology ;
                                                    owl:versionIRI <urn:absolute:http://localhost:8000/collective_agreements.ttl/1.0.0> .
