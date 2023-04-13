@@ -53,7 +53,7 @@ the entire collective agreement.
 
 ## How to Run the Project
 
-All commands listed below are expected to be run from the root directory of this project.
+All commands listed below are expected to be run from the root directory of this project. [Conda](https://conda.io/projects/conda/en/latest/user-guide/install/windows.html) is assumed to be used as a package manager.
 
 ### Install Dependencies
 
